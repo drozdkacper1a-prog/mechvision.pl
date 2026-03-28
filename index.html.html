@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MechVision — Biuro Konstrukcyjne | Kacper Drózd</title>
+<meta name="description" content="MechVision — profesjonalne usługi konstruktorskie. Projektowanie maszyn 3D/CAD, dokumentacja techniczna, obliczenia MES. Kacper Drózd, inżynier z 8-letnim doświadczeniem.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --slate-950: #0a0f1a;
+  --slate-900: #111827;
+  --slate-800: #1e293b;
+  --slate-700: #334155;
+  --slate-600: #475569;
+  --slate-500: #64748b;
+  --slate-400: #94a3b8;
+  --slate-300: #cbd5e1;
+  --slate-200: #e2e8f0;
+  --slate-100: #f1f5f9;
+  --slate-50: #f8fafc;
+  --blue-600: #2563eb;
+  --blue-500: #3b82f6;
+  --blue-400: #60a5fa;
+  --blue-300: #93c5fd;
+  --white: #ffffff;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--slate-50);
+  color: var(--slate-800);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+.grid-bg {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
+}
+.grid-bg::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(37,99,235,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37,99,235,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.grid-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(37,99,235,0.08) 0%, transparent 60%);
+}
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(248,250,252,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--slate-200);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.06); }
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1140px; margin: 0 auto; padding: 0 24px; height: 64px;
+}
+.nav-logo {
+  font-family: var(--font-mono); font-weight: 700; font-size: 18px;
+  color: var(--slate-900); text-decoration: none; letter-spacing: -0.5px;
+}
+.nav-logo span { color: var(--blue-600); }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  text-decoration: none; color: var(--slate-500); font-size: 14px;
+  font-weight: 500; letter-spacing: 0.02em; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--slate-900); }
+.nav-cta {
+  background: var(--blue-600); color: var(--white) !important;
+  padding: 8px 20px; border-radius: 6px; font-size: 13px !important;
+  transition: background 0.2s, transform 0.15s !important;
+}
+.nav-cta:hover { background: var(--blue-500) !important; transform: translateY(-1px); }
+
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+.hamburger span {
+  display: block; width: 22px; height: 2px; background: var(--slate-700);
+  margin: 5px 0; transition: 0.3s;
+}
+
+.hero {
+  position: relative; min-height: 100vh; display: flex; align-items: center;
+  padding: 120px 0 80px; overflow: hidden;
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 12px; color: var(--blue-600);
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 24px;
+  background: rgba(37,99,235,0.06); padding: 6px 14px; border-radius: 4px;
+  border: 1px solid rgba(37,99,235,0.12);
+}
+.hero-tag::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--blue-500); animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
+}
+.hero h1 {
+  font-size: clamp(38px, 5.5vw, 64px); font-weight: 700;
+  line-height: 1.08; letter-spacing: -0.03em;
+  color: var(--slate-950); margin-bottom: 24px; max-width: 700px;
+}
+.hero h1 .accent { color: var(--blue-600); }
+.hero-desc {
+  font-size: 18px; color: var(--slate-500); max-width: 520px;
+  line-height: 1.7; margin-bottom: 40px;
+}
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--blue-600); color: var(--white); padding: 14px 28px;
+  border-radius: 8px; text-decoration: none; font-weight: 600;
+  font-size: 15px; transition: all 0.2s; border: none; cursor: pointer;
+}
+.btn-primary:hover { background: var(--blue-500); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.25); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--slate-700); padding: 14px 28px;
+  border-radius: 8px; text-decoration: none; font-weight: 600;
+  font-size: 15px; border: 1px solid var(--slate-300); transition: all 0.2s;
+}
+.btn-secondary:hover { border-color: var(--slate-400); background: var(--white); }
+
+.hero-stats {
+  display: flex; gap: 48px; margin-top: 64px; padding-top: 40px;
+  border-top: 1px solid var(--slate-200);
+}
+.stat-item {}
+.stat-number {
+  font-family: var(--font-mono); font-size: 32px; font-weight: 700;
+  color: var(--slate-900); letter-spacing: -0.02em;
+}
+.stat-number span { color: var(--blue-600); }
+.stat-label { font-size: 13px; color: var(--slate-500); margin-top: 2px; letter-spacing: 0.02em; }
+
+section { padding: 100px 0; }
+.section-tag {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--blue-600); margin-bottom: 12px;
+}
+.section-title {
+  font-size: clamp(28px, 3.5vw, 40px); font-weight: 700;
+  letter-spacing: -0.02em; color: var(--slate-950); margin-bottom: 16px;
+}
+.section-desc {
+  font-size: 16px; color: var(--slate-500); max-width: 560px; line-height: 1.7;
+}
+.section-header { margin-bottom: 56px; }
+
+.services { background: var(--white); border-top: 1px solid var(--slate-200); border-bottom: 1px solid var(--slate-200); }
+.services-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+.service-card {
+  padding: 36px 32px; border-radius: 12px;
+  background: var(--slate-50); border: 1px solid var(--slate-200);
+  transition: all 0.3s; position: relative; overflow: hidden;
+}
+.service-card:hover {
+  border-color: var(--blue-400); background: var(--white);
+  transform: translateY(-4px); box-shadow: 0 12px 40px rgba(37,99,235,0.08);
+}
+.service-icon {
+  width: 48px; height: 48px; border-radius: 10px;
+  background: rgba(37,99,235,0.08); display: flex; align-items: center;
+  justify-content: center; margin-bottom: 20px;
+  color: var(--blue-600); font-size: 22px;
+}
+.service-card h3 {
+  font-size: 17px; font-weight: 600; color: var(--slate-900); margin-bottom: 10px;
+}
+.service-card p { font-size: 14px; color: var(--slate-500); line-height: 1.65; }
+.service-num {
+  position: absolute; top: 16px; right: 20px;
+  font-family: var(--font-mono); font-size: 12px; color: var(--slate-300);
+}
+
+.experience { position: relative; }
+.exp-timeline { display: flex; flex-direction: column; gap: 0; }
+.exp-item {
+  display: grid; grid-template-columns: 200px 1fr; gap: 48px;
+  padding: 36px 0; border-bottom: 1px solid var(--slate-200);
+  transition: background 0.3s; position: relative;
+}
+.exp-item:first-child { border-top: 1px solid var(--slate-200); }
+.exp-item:hover { background: rgba(37,99,235,0.02); }
+.exp-date {
+  font-family: var(--font-mono); font-size: 13px; color: var(--slate-400);
+  padding-top: 4px;
+}
+.exp-content h3 { font-size: 18px; font-weight: 600; color: var(--slate-900); margin-bottom: 4px; }
+.exp-company { font-size: 14px; color: var(--blue-600); font-weight: 500; margin-bottom: 12px; }
+.exp-desc { font-size: 14px; color: var(--slate-500); line-height: 1.7; }
+.exp-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.exp-tag {
+  font-size: 12px; font-family: var(--font-mono); padding: 4px 10px;
+  background: var(--slate-100); border-radius: 4px; color: var(--slate-600);
+  border: 1px solid var(--slate-200);
+}
+
+.tools { background: var(--slate-900); color: var(--white); }
+.tools .section-tag { color: var(--blue-400); }
+.tools .section-title { color: var(--white); }
+.tools .section-desc { color: var(--slate-400); }
+.tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.tool-card {
+  background: var(--slate-800); border: 1px solid var(--slate-700);
+  border-radius: 12px; padding: 32px 24px; text-align: center;
+  transition: all 0.3s;
+}
+.tool-card:hover {
+  border-color: var(--blue-500); transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+.tool-logo {
+  font-family: var(--font-mono); font-size: 28px; font-weight: 700;
+  margin-bottom: 12px; color: var(--white);
+}
+.tool-card h4 { font-size: 15px; font-weight: 600; color: var(--slate-200); margin-bottom: 6px; }
+.tool-card p { font-size: 12px; color: var(--slate-400); line-height: 1.5; }
+.tool-badge {
+  display: inline-block; margin-top: 12px; font-size: 10px; font-family: var(--font-mono);
+  letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px;
+  border-radius: 3px; background: rgba(37,99,235,0.15); color: var(--blue-400);
+}
+
+.portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.portfolio-card {
+  border-radius: 12px; overflow: hidden; background: var(--white);
+  border: 1px solid var(--slate-200); transition: all 0.3s;
+}
+.portfolio-card:hover {
+  transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+}
+.portfolio-img {
+  height: 220px; background: var(--slate-200); position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.portfolio-img::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(135deg, var(--slate-300) 25%, transparent 25%) -10px 0,
+    linear-gradient(225deg, var(--slate-300) 25%, transparent 25%) -10px 0,
+    linear-gradient(315deg, var(--slate-300) 25%, transparent 25%),
+    linear-gradient(45deg, var(--slate-300) 25%, transparent 25%);
+  background-size: 20px 20px; opacity: 0.3;
+}
+.portfolio-placeholder {
+  position: relative; z-index: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 8px; color: var(--slate-400);
+}
+.portfolio-placeholder svg { opacity: 0.4; }
+.portfolio-placeholder span { font-size: 12px; font-family: var(--font-mono); letter-spacing: 0.05em; }
+.portfolio-info { padding: 24px; }
+.portfolio-info h3 { font-size: 16px; font-weight: 600; color: var(--slate-900); margin-bottom: 6px; }
+.portfolio-info p { font-size: 13px; color: var(--slate-500); line-height: 1.6; }
+.portfolio-tag-row { display: flex; gap: 6px; margin-top: 12px; }
+.portfolio-tag-row .exp-tag { font-size: 11px; }
+
+.about { background: var(--white); border-top: 1px solid var(--slate-200); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.about-photo {
+  width: 100%; aspect-ratio: 4/5; border-radius: 16px;
+  background: linear-gradient(145deg, var(--slate-200), var(--slate-300));
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.about-photo::after {
+  content: ''; position: absolute; inset: 0;
+  border-radius: 16px; border: 1px solid rgba(0,0,0,0.06);
+}
+.about-photo-placeholder {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  color: var(--slate-400);
+}
+.about-photo-placeholder span { font-size: 13px; font-family: var(--font-mono); }
+.about-text h3 { font-size: 28px; font-weight: 700; color: var(--slate-950); margin-bottom: 20px; letter-spacing: -0.01em; }
+.about-text p { font-size: 15px; color: var(--slate-500); line-height: 1.75; margin-bottom: 16px; }
+.about-details {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px;
+}
+.about-detail {
+  padding: 16px; background: var(--slate-50); border-radius: 8px;
+  border: 1px solid var(--slate-200);
+}
+.about-detail-label {
+  font-size: 11px; font-family: var(--font-mono); color: var(--slate-400);
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;
+}
+.about-detail-value { font-size: 14px; font-weight: 600; color: var(--slate-800); }
+
+.process { border-top: 1px solid var(--slate-200); }
+.process-steps {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  border: 1px solid var(--slate-200); border-radius: 12px; overflow: hidden;
+  background: var(--white);
+}
+.process-step {
+  padding: 40px 28px; position: relative;
+  border-right: 1px solid var(--slate-200);
+  transition: background 0.3s;
+}
+.process-step:last-child { border-right: none; }
+.process-step:hover { background: rgba(37,99,235,0.02); }
+.step-num {
+  font-family: var(--font-mono); font-size: 36px; font-weight: 700;
+  color: var(--slate-200); margin-bottom: 16px;
+}
+.process-step:hover .step-num { color: var(--blue-400); }
+.process-step h4 { font-size: 15px; font-weight: 600; color: var(--slate-900); margin-bottom: 8px; }
+.process-step p { font-size: 13px; color: var(--slate-500); line-height: 1.6; }
+
+.contact {
+  background: var(--slate-950); color: var(--white); position: relative; overflow: hidden;
+}
+.contact .grid-bg::before {
+  background-image:
+    linear-gradient(rgba(59,130,246,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,130,246,0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.contact .grid-bg::after {
+  background: radial-gradient(ellipse at 70% 50%, rgba(37,99,235,0.12) 0%, transparent 60%);
+}
+.contact-inner {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
+}
+.contact .section-tag { color: var(--blue-400); }
+.contact .section-title { color: var(--white); font-size: clamp(28px, 3.5vw, 38px); }
+.contact .section-desc { color: var(--slate-400); }
+.contact-methods { display: flex; flex-direction: column; gap: 24px; margin-top: 40px; }
+.contact-method {
+  display: flex; align-items: center; gap: 16px;
+}
+.contact-method-icon {
+  width: 48px; height: 48px; border-radius: 10px;
+  background: var(--slate-800); border: 1px solid var(--slate-700);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--blue-400); flex-shrink: 0;
+}
+.contact-method-label { font-size: 12px; color: var(--slate-500); margin-bottom: 2px; }
+.contact-method-value {
+  font-size: 16px; font-weight: 500; color: var(--white);
+  text-decoration: none;
+}
+.contact-method-value:hover { color: var(--blue-400); }
+
+.contact-form {
+  background: var(--slate-900); border: 1px solid var(--slate-700);
+  border-radius: 16px; padding: 40px;
+}
+.contact-form h3 {
+  font-size: 20px; font-weight: 600; color: var(--white); margin-bottom: 24px;
+}
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block; font-size: 13px; color: var(--slate-400);
+  margin-bottom: 6px; font-weight: 500;
+}
+.form-group input, .form-group textarea {
+  width: 100%; padding: 12px 16px; font-size: 14px; font-family: var(--font-body);
+  background: var(--slate-800); border: 1px solid var(--slate-700);
+  border-radius: 8px; color: var(--white); outline: none; transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group textarea:focus {
+  border-color: var(--blue-500);
+}
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-submit {
+  width: 100%; margin-top: 8px; padding: 14px;
+  background: var(--blue-600); color: var(--white); border: none;
+  border-radius: 8px; font-size: 15px; font-weight: 600;
+  font-family: var(--font-body); cursor: pointer; transition: all 0.2s;
+}
+.form-submit:hover { background: var(--blue-500); transform: translateY(-1px); }
+
+footer {
+  background: var(--slate-950); border-top: 1px solid var(--slate-800);
+  padding: 32px 0; text-align: center;
+}
+footer p { font-size: 13px; color: var(--slate-500); }
+footer a { color: var(--slate-400); text-decoration: none; }
+
+.fade-in {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+
+@media (max-width: 1024px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .tools-grid { grid-template-columns: repeat(2, 1fr); }
+  .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+  .process-steps { grid-template-columns: repeat(2, 1fr); }
+  .process-step:nth-child(2) { border-right: none; }
+  .process-step:nth-child(1), .process-step:nth-child(2) { border-bottom: 1px solid var(--slate-200); }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: block; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: 64px; left: 0; right: 0; background: var(--white);
+    padding: 24px; gap: 16px; border-bottom: 1px solid var(--slate-200);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  }
+  .hero-stats { flex-direction: column; gap: 24px; }
+  .services-grid, .tools-grid, .portfolio-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: 1fr; }
+  .process-step { border-right: none !important; border-bottom: 1px solid var(--slate-200); }
+  .process-step:last-child { border-bottom: none; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .exp-item { grid-template-columns: 1fr; gap: 8px; }
+  .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+  .form-row { grid-template-columns: 1fr; }
+  .hero { min-height: auto; padding: 120px 0 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Mech<span>Vision</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#uslugi">Usługi</a></li>
+      <li><a href="#doswiadczenie">Doświadczenie</a></li>
+      <li><a href="#narzedzia">Narzędzia</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#o-mnie">O mnie</a></li>
+      <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="grid-bg"></div>
+  <div class="container hero-content">
+    <div class="hero-tag">Biuro Konstrukcyjne Maszyn</div>
+    <h1>Projektuję maszyny,<br>które <span class="accent">działają.</span></h1>
+    <p class="hero-desc">Profesjonalne usługi konstruktorskie — od koncepcji 3D, przez dokumentację techniczną, po obliczenia wytrzymałościowe. Sprawdzone rozwiązania dla przemysłu.</p>
+    <div class="hero-actions">
+      <a href="#kontakt" class="btn-primary">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        Porozmawiajmy o projekcie
+      </a>
+      <a href="#uslugi" class="btn-secondary">
+        Zakres usług
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17l9.2-9.2M17 17V7.8H7.8"/></svg>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number">8<span>+</span></div>
+        <div class="stat-label">Lat doświadczenia</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Branże przemysłowe</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">mgr inż<span>.</span></div>
+        <div class="stat-label">Politechnika Lubelska</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="uslugi">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">// Usługi</div>
+      <h2 class="section-title">Co mogę dla Ciebie zrobić</h2>
+      <p class="section-desc">Kompleksowa obsługa projektów konstrukcyjnych — od pierwszego szkicu po kompletną dokumentację gotową do produkcji.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-in delay-1">
+        <div class="service-num">01</div>
+        <div class="service-icon">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3>Projektowanie 3D / CAD</h3>
+        <p>Tworzenie modeli 3D maszyn, urządzeń i oprzyrządowania produkcyjnego w środowisku SolidWorks. Od koncepcji po gotowy model złożeniowy.</p>
+      </div>
+      <div class="service-card fade-in delay-2">
+        <div class="service-num">02</div>
+        <div class="service-icon">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+        </div>
+        <h3>Dokumentacja techniczna 2D</h3>
+        <p>Kompletna dokumentacja warsztatowa i złożeniowa. Rysunki wykonawcze zgodne z normami, gotowe do przekazania na produkcję.</p>
+      </div>
+      <div class="service-card fade-in delay-3">
+        <div class="service-num">03</div>
+        <div class="service-icon">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h3>Obliczenia MES / Symulacje</h3>
+        <p>Analizy wytrzymałościowe i symulacje przepływów w Ansys. Weryfikacja konstrukcji przed produkcją — oszczędność czasu i kosztów prototypowania.</p>
+      </div>
+      <div class="service-card fade-in delay-4">
+        <div class="service-num">04</div>
+        <div class="service-icon">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
+        </div>
+        <h3>Listy zamówieniowe BOM</h3>
+        <p>Tworzenie i zarządzanie listami materiałowymi (Bill of Materials). Precyzyjne zestawienia komponentów gotowe do złożenia zamówienia.</p>
+      </div>
+      <div class="service-card fade-in delay-5">
+        <div class="service-num">05</div>
+        <div class="service-icon">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9c.26.6.77 1.02 1.35 1.15.12.02.24.04.16.04H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </div>
+        <h3>Doradztwo techniczne</h3>
+        <p>Konsultacje inżynierskie, dobór komponentów pneumatycznych i hydraulicznych, optymalizacja istniejących rozwiązań konstrukcyjnych.</p>
+      </div>
+      <div class="service-card fade-in delay-5">
+        <div class="service-num">06</div>
+        <div class="service-icon">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h3>Usługi biurowe</h3>
+        <p>Wsparcie dokumentacyjne i organizacyjne projektów. Prowadzenie dokumentacji projektowej, raportowanie postępów, koordynacja z podwykonawcami.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="doswiadczenie">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">// Doświadczenie</div>
+      <h2 class="section-title">Sprawdzone w przemyśle</h2>
+      <p class="section-desc">Ponad 8 lat doświadczenia w projektowaniu maszyn dla klientów takich jak Philip Morris, BAT i wielu innych.</p>
+    </div>
+    <div class="exp-timeline">
+      <div class="exp-item fade-in">
+        <div class="exp-date">12/2020 — 10/2025</div>
+        <div class="exp-content">
+          <h3>Mechanical Design Engineer</h3>
+          <div class="exp-company">International Tobacco Machinery · Radom</div>
+          <p class="exp-desc">Projektowanie i rozwój zaawansowanych maszyn dla przemysłu tytoniowego. Adaptacja rozwiązań do istniejących urządzeń, obliczenia mechanizmów i silników, symulacje przepływów i wytrzymałości. Współpraca z klientami międzynarodowymi, wyjazdy do hal produkcyjnych (m.in. Włochy). Klienci: Philip Morris, BAT.</p>
+          <div class="exp-tags">
+            <span class="exp-tag">SolidWorks</span>
+            <span class="exp-tag">Ansys</span>
+            <span class="exp-tag">Pneumatyka</span>
+            <span class="exp-tag">Hydraulika</span>
+            <span class="exp-tag">MES / CFD</span>
+          </div>
+        </div>
+      </div>
+      <div class="exp-item fade-in">
+        <div class="exp-date">05/2019 — 11/2020</div>
+        <div class="exp-content">
+          <h3>Mechanical Design Engineer</h3>
+          <div class="exp-company">Sorter · Radom</div>
+          <p class="exp-desc">Projektowanie linii produkcyjnych i urządzeń montażowych — od sortowania, przez pakowanie, po paletyzację i robotykę. Tworzenie dokumentacji wykonawczej i złożeniowej, zarządzanie budżetem projektów, przygotowywanie list materiałowych BOM.</p>
+          <div class="exp-tags">
+            <span class="exp-tag">Linie produkcyjne</span>
+            <span class="exp-tag">Robotyka</span>
+            <span class="exp-tag">BOM</span>
+            <span class="exp-tag">Dokumentacja 2D</span>
+          </div>
+        </div>
+      </div>
+      <div class="exp-item fade-in">
+        <div class="exp-date">10/2017 — 05/2019</div>
+        <div class="exp-content">
+          <h3>Junior Mechanical Design Engineer</h3>
+          <div class="exp-company">Ursus Bus · Lublin</div>
+          <p class="exp-desc">Projektowanie tras okablowania elektrycznego i pneumatycznego, uchwytów i elementów mocujących w autobusach konwencjonalnych i elektrycznych. Wsparcie techniczne procesu produkcji — montaż silników, kompresorów, klimatyzacji, systemów hydraulicznych.</p>
+          <div class="exp-tags">
+            <span class="exp-tag">Automotive</span>
+            <span class="exp-tag">Elektrobusy</span>
+            <span class="exp-tag">Montaż</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="tools" id="narzedzia">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">// Narzędzia</div>
+      <h2 class="section-title">Oprogramowanie i kompetencje</h2>
+      <p class="section-desc">Pracuję na sprawdzonym oprogramowaniu inżynierskim, które pozwala dostarczać projekty najwyższej jakości.</p>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-card fade-in delay-1">
+        <div class="tool-logo">SW</div>
+        <h4>SolidWorks</h4>
+        <p>Główne narzędzie projektowe. Modelowanie 3D, złożenia, dokumentacja 2D, wizualizacje.</p>
+        <span class="tool-badge">Zaawansowany</span>
+      </div>
+      <div class="tool-card fade-in delay-2">
+        <div class="tool-logo">An</div>
+        <h4>Ansys</h4>
+        <p>Symulacje MES i CFD. Analizy wytrzymałościowe, przepływy, optymalizacja konstrukcji.</p>
+        <span class="tool-badge">Zaawansowany</span>
+      </div>
+      <div class="tool-card fade-in delay-3">
+        <div class="tool-logo">Ca</div>
+        <h4>Catia V5</h4>
+        <p>Modelowanie części i złożeń. Certyfikat ukończenia kursu Catia V5.</p>
+        <span class="tool-badge">Certyfikat</span>
+      </div>
+      <div class="tool-card fade-in delay-4">
+        <div class="tool-logo">+</div>
+        <h4>Dodatkowe</h4>
+        <p>GD&T, metodyka TRIZ, Microsoft Office, zarządzanie dokumentacją projektową.</p>
+        <span class="tool-badge">Szkolenia</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">// Portfolio</div>
+      <h2 class="section-title">Wybrane realizacje</h2>
+      <p class="section-desc">Przykłady zrealizowanych projektów. Każdy projekt to indywidualne rozwiązanie dopasowane do potrzeb klienta.</p>
+    </div>
+    <div class="portfolio-grid">
+      <div class="portfolio-card fade-in delay-1">
+        <div class="portfolio-img">
+          <div class="portfolio-placeholder">
+            <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Wizualizacja 3D</span>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <h3>Maszyna pakująca — przemysł tytoniowy</h3>
+          <p>Adaptacja i rozwój maszyny pakującej dla międzynarodowego klienta. Projekt obejmował modyfikację mechanizmów podających i systemu pneumatycznego.</p>
+          <div class="portfolio-tag-row">
+            <span class="exp-tag">SolidWorks</span>
+            <span class="exp-tag">Pneumatyka</span>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-card fade-in delay-2">
+        <div class="portfolio-img">
+          <div class="portfolio-placeholder">
+            <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Wizualizacja 3D</span>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <h3>Linia sortująca — przemysł spożywczy</h3>
+          <p>Projektowanie linii do sortowania i transportu produktów. Taśmociągi, przenośniki płytowe, elewatory do transportu owoców.</p>
+          <div class="portfolio-tag-row">
+            <span class="exp-tag">Linia produkcyjna</span>
+            <span class="exp-tag">Robotyka</span>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-card fade-in delay-3">
+        <div class="portfolio-img">
+          <div class="portfolio-placeholder">
+            <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Wizualizacja 3D</span>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <h3>Analiza MES — konstrukcja nośna</h3>
+          <p>Symulacja wytrzymałościowa w Ansys dla elementu konstrukcji nośnej. Optymalizacja geometrii w celu redukcji masy przy zachowaniu sztywności.</p>
+          <div class="portfolio-tag-row">
+            <span class="exp-tag">Ansys</span>
+            <span class="exp-tag">MES</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="o-mnie">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-photo fade-in">
+        <div class="about-photo-placeholder">
+          <svg width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>Twoje zdjęcie</span>
+        </div>
+      </div>
+      <div class="about-text fade-in delay-2">
+        <div class="section-tag">// O mnie</div>
+        <h3>Kacper Drózd</h3>
+        <p>Jestem inżynierem mechanikiem z ponad 8-letnim doświadczeniem w projektowaniu maszyn dla przemysłu. Ukończyłem studia magisterskie na Politechnice Lubelskiej na kierunku budowa maszyn, specjalizując się w konstrukcjach lotniczych.</p>
+        <p>Pracowałem dla firm z branży tytoniowej (ITM Group — klienci: Philip Morris, BAT), spożywczej (Sorter — linie sortujące i pakujące) oraz automotive (Ursus Bus — autobusy konwencjonalne i elektryczne). Mam doświadczenie w pracy z klientami międzynarodowymi i zespołami wielokulturowymi.</p>
+        <p>Zakładając MechVision chcę łączyć swoje doświadczenie z różnych branż, oferując kompleksowe usługi konstruktorskie — od pierwszego szkicu po gotową dokumentację produkcyjną.</p>
+        <div class="about-details">
+          <div class="about-detail">
+            <div class="about-detail-label">Wykształcenie</div>
+            <div class="about-detail-value">mgr inż. Budowa Maszyn</div>
+          </div>
+          <div class="about-detail">
+            <div class="about-detail-label">Uczelnia</div>
+            <div class="about-detail-value">Politechnika Lubelska</div>
+          </div>
+          <div class="about-detail">
+            <div class="about-detail-label">Języki</div>
+            <div class="about-detail-value">PL · EN · DE</div>
+          </div>
+          <div class="about-detail">
+            <div class="about-detail-label">Lokalizacja</div>
+            <div class="about-detail-value">Pionki, Polska</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="proces">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">// Jak pracuję</div>
+      <h2 class="section-title">Proces współpracy</h2>
+      <p class="section-desc">Przejrzyste zasady współpracy — wiesz na jakim etapie jest Twój projekt i co się dzieje dalej.</p>
+    </div>
+    <div class="process-steps fade-in">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <h4>Konsultacja</h4>
+        <p>Omówienie Twoich potrzeb, wymagań technicznych i oczekiwań. Wstępna ocena zakresu prac i harmonogramu.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <h4>Koncepcja</h4>
+        <p>Opracowanie wstępnego modelu 3D i założeń konstrukcyjnych. Prezentacja koncepcji do akceptacji przed rozpoczęciem szczegółowych prac.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <h4>Projektowanie</h4>
+        <p>Szczegółowe modelowanie 3D, obliczenia wytrzymałościowe, dobór komponentów. Regularne konsultacje na każdym etapie.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <h4>Dokumentacja</h4>
+        <p>Kompletna dokumentacja techniczna 2D, listy materiałowe BOM, specyfikacje. Materiały gotowe do przekazania na produkcję.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="kontakt">
+  <div class="grid-bg"></div>
+  <div class="container">
+    <div class="contact-inner">
+      <div class="fade-in">
+        <div class="section-tag">// Kontakt</div>
+        <h2 class="section-title">Masz projekt?<br>Porozmawiajmy.</h2>
+        <p class="section-desc">Opisz swoje potrzeby — odpowiem w ciągu 24 godzin z wstępną oceną i propozycją współpracy.</p>
+        <div class="contact-methods">
+          <div class="contact-method">
+            <div class="contact-method-icon">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+            </div>
+            <div>
+              <div class="contact-method-label">Email</div>
+              <a href="mailto:drozdkacper1@gmail.com" class="contact-method-value">drozdkacper1@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-method">
+            <div class="contact-method-icon">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="contact-method-label">Telefon</div>
+              <a href="tel:+48732286368" class="contact-method-value">+48 732 286 368</a>
+            </div>
+          </div>
+          <div class="contact-method">
+            <div class="contact-method-icon">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="contact-method-label">Lokalizacja</div>
+              <span class="contact-method-value" style="cursor:default;">Pionki, Polska</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form fade-in delay-2">
+        <h3>Wyślij zapytanie</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Imię i nazwisko</label>
+            <input type="text" id="name" placeholder="Jan Kowalski">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="jan@firma.pl">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="subject">Temat</label>
+          <input type="text" id="subject" placeholder="Np. Projekt maszyny pakującej">
+        </div>
+        <div class="form-group">
+          <label for="message">Opisz swój projekt</label>
+          <textarea id="message" placeholder="Opisz krótko czego potrzebujesz — rodzaj maszyny, branża, zakres prac, termin..."></textarea>
+        </div>
+        <button class="form-submit" type="button" onclick="alert('Formularz demonstracyjny — po uruchomieniu strony podłącz np. Formspree.io, żeby wiadomości przychodziły na Twój email.')">Wyślij wiadomość</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>&copy; 2026 MechVision — Kacper Drózd · Biuro Konstrukcyjne Maszyn · <a href="mailto:drozdkacper1@gmail.com">drozdkacper1@gmail.com</a></p>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
