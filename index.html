@@ -233,9 +233,8 @@ section { padding: 100px 0; }
   border-color: var(--blue-500); transform: translateY(-4px);
   box-shadow: 0 12px 40px rgba(0,0,0,0.3);
 }
-.tool-logo {
-  font-family: var(--font-mono); font-size: 28px; font-weight: 700;
-  margin-bottom: 12px; color: var(--white);
+.tool-icon-wrap {
+  margin-bottom: 16px; color: var(--blue-400);
 }
 .tool-card h4 { font-size: 15px; font-weight: 600; color: var(--slate-200); margin-bottom: 6px; }
 .tool-card p { font-size: 12px; color: var(--slate-400); line-height: 1.5; }
@@ -310,6 +309,22 @@ section { padding: 100px 0; }
   text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;
 }
 .about-detail-value { font-size: 14px; font-weight: 600; color: var(--slate-800); }
+
+.testimonial { border-top: 1px solid var(--slate-200); background: var(--white); }
+.testimonial-card { max-width: 760px; margin: 0 auto; text-align: center; }
+.testimonial-quote {
+  font-size: 18px; color: var(--slate-700); line-height: 1.8;
+  font-style: italic; position: relative; padding: 0 20px;
+}
+.testimonial-quote::before {
+  content: '\201E'; font-size: 64px; font-family: var(--font-mono);
+  color: var(--blue-400); position: absolute; top: -20px; left: -10px;
+  line-height: 1; opacity: 0.6;
+}
+.testimonial-author { margin-top: 28px; }
+.testimonial-author-name { font-size: 16px; font-weight: 600; color: var(--slate-900); }
+.testimonial-author-role { font-size: 13px; color: var(--slate-500); margin-top: 2px; }
+.testimonial-author-company { font-size: 13px; color: var(--blue-600); font-weight: 500; }
 
 .process { border-top: 1px solid var(--slate-200); }
 .process-steps {
@@ -459,6 +474,7 @@ footer a { color: var(--slate-400); text-decoration: none; }
       <li><a href="#narzedzia">Narzędzia</a></li>
       <li><a href="#portfolio">Portfolio</a></li>
       <li><a href="#o-mnie">O mnie</a></li>
+      <li><a href="#referencje">Referencje</a></li>
       <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -579,9 +595,9 @@ footer a { color: var(--slate-400); text-decoration: none; }
           <p class="exp-desc">Projektowanie i rozwój zaawansowanych maszyn dla przemysłu tytoniowego. Adaptacja rozwiązań do istniejących urządzeń, obliczenia mechanizmów i silników, symulacje przepływów i wytrzymałości. Współpraca z klientami międzynarodowymi, wyjazdy do hal produkcyjnych (m.in. Włochy). Klienci: Philip Morris, BAT.</p>
           <div class="exp-tags">
             <span class="exp-tag">SolidWorks</span>
+            <span class="exp-tag">AutoCAD</span>
             <span class="exp-tag">Ansys</span>
             <span class="exp-tag">Pneumatyka</span>
-            <span class="exp-tag">Hydraulika</span>
             <span class="exp-tag">MES / CFD</span>
           </div>
         </div>
@@ -627,25 +643,33 @@ footer a { color: var(--slate-400); text-decoration: none; }
     </div>
     <div class="tools-grid">
       <div class="tool-card fade-in delay-1">
-        <div class="tool-logo">SW</div>
+        <div class="tool-icon-wrap">
+          <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
         <h4>SolidWorks</h4>
-        <p>Główne narzędzie projektowe. Modelowanie 3D, złożenia, dokumentacja 2D, wizualizacje.</p>
+        <p>Główne narzędzie projektowe. Modelowanie 3D, złożenia, dokumentacja 2D, wizualizacje, Motion, Simulation.</p>
         <span class="tool-badge">Zaawansowany</span>
       </div>
       <div class="tool-card fade-in delay-2">
-        <div class="tool-logo">An</div>
+        <div class="tool-icon-wrap">
+          <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
         <h4>Ansys</h4>
         <p>Symulacje MES i CFD. Analizy wytrzymałościowe, przepływy, optymalizacja konstrukcji.</p>
         <span class="tool-badge">Zaawansowany</span>
       </div>
       <div class="tool-card fade-in delay-3">
-        <div class="tool-logo">Ca</div>
-        <h4>Catia V5</h4>
-        <p>Modelowanie części i złożeń. Certyfikat ukończenia kursu Catia V5.</p>
+        <div class="tool-icon-wrap">
+          <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h4>Catia V5 / AutoCAD</h4>
+        <p>Modelowanie części i złożeń w Catia V5 (certyfikat). Dokumentacja 2D w AutoCAD.</p>
         <span class="tool-badge">Certyfikat</span>
       </div>
       <div class="tool-card fade-in delay-4">
-        <div class="tool-logo">+</div>
+        <div class="tool-icon-wrap">
+          <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9c.26.6.77 1.02 1.35 1.15.12.02.24.04.16.04H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </div>
         <h4>Dodatkowe</h4>
         <p>GD&T, metodyka TRIZ, Microsoft Office, zarządzanie dokumentacją projektową.</p>
         <span class="tool-badge">Szkolenia</span>
@@ -666,48 +690,51 @@ footer a { color: var(--slate-400); text-decoration: none; }
       <div class="portfolio-card fade-in delay-1">
         <div class="portfolio-img">
           <div class="portfolio-placeholder">
-            <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-            <span>Wizualizacja 3D</span>
+            <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09"/></svg>
+            <span>Projekt poufny</span>
           </div>
         </div>
         <div class="portfolio-info">
-          <h3>Maszyna pakująca — przemysł tytoniowy</h3>
-          <p>Adaptacja i rozwój maszyny pakującej dla międzynarodowego klienta. Projekt obejmował modyfikację mechanizmów podających i systemu pneumatycznego.</p>
+          <h3>Modyfikacja mechanizmu transportowego Spider</h3>
+          <p>Przeprojektowanie krzywki globoidalnej na walcową dwustronną, obliczenia sił i przyspieszeń, symulacje CFD kanałów podciśnieniowych w celu uzyskania symetrii przepływu. Analiza kolizji i zakresów tolerancji.</p>
           <div class="portfolio-tag-row">
             <span class="exp-tag">SolidWorks</span>
-            <span class="exp-tag">Pneumatyka</span>
+            <span class="exp-tag">Ansys CFD</span>
+            <span class="exp-tag">Krzywki</span>
           </div>
         </div>
       </div>
       <div class="portfolio-card fade-in delay-2">
         <div class="portfolio-img">
           <div class="portfolio-placeholder">
-            <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-            <span>Wizualizacja 3D</span>
+            <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+            <span>Projekt poufny</span>
           </div>
         </div>
         <div class="portfolio-info">
-          <h3>Linia sortująca — przemysł spożywczy</h3>
-          <p>Projektowanie linii do sortowania i transportu produktów. Taśmociągi, przenośniki płytowe, elewatory do transportu owoców.</p>
+          <h3>Schematy procesowe i kinematyczne maszyn</h3>
+          <p>Opracowywanie schematów procesowych, pneumatycznych i kinematycznych. Projektowanie prowadnic V-rail, karetki nożowej z detekcją wyszczerbień, mechanizmów start/stop oraz garniturów do nowych linii produktowych.</p>
           <div class="portfolio-tag-row">
-            <span class="exp-tag">Linia produkcyjna</span>
-            <span class="exp-tag">Robotyka</span>
+            <span class="exp-tag">Pneumatyka</span>
+            <span class="exp-tag">Mechanizmy</span>
+            <span class="exp-tag">Dokumentacja</span>
           </div>
         </div>
       </div>
       <div class="portfolio-card fade-in delay-3">
         <div class="portfolio-img">
           <div class="portfolio-placeholder">
-            <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-            <span>Wizualizacja 3D</span>
+            <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            <span>Projekt poufny</span>
           </div>
         </div>
         <div class="portfolio-info">
-          <h3>Analiza MES — konstrukcja nośna</h3>
-          <p>Symulacja wytrzymałościowa w Ansys dla elementu konstrukcji nośnej. Optymalizacja geometrii w celu redukcji masy przy zachowaniu sztywności.</p>
+          <h3>Linie sortująco-pakujące — przemysł spożywczy</h3>
+          <p>Projektowanie kompletnych linii produkcyjnych od sortowania po paletyzację. Taśmociągi, przenośniki płytowe, elewatory, integracja z robotyką. Dokumentacja wykonawcza i listy materiałowe BOM.</p>
           <div class="portfolio-tag-row">
-            <span class="exp-tag">Ansys</span>
-            <span class="exp-tag">MES</span>
+            <span class="exp-tag">Linie produkcyjne</span>
+            <span class="exp-tag">Robotyka</span>
+            <span class="exp-tag">BOM</span>
           </div>
         </div>
       </div>
@@ -742,13 +769,32 @@ footer a { color: var(--slate-400); text-decoration: none; }
           </div>
           <div class="about-detail">
             <div class="about-detail-label">Języki</div>
-            <div class="about-detail-value">PL · EN · DE</div>
+            <div class="about-detail-value">PL · EN</div>
           </div>
           <div class="about-detail">
             <div class="about-detail-label">Lokalizacja</div>
             <div class="about-detail-value">Pionki, Polska</div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial" id="referencje">
+  <div class="container">
+    <div class="section-header fade-in" style="text-align:center;">
+      <div class="section-tag">// Referencje</div>
+    </div>
+    <div class="testimonial-card fade-in">
+      <div class="testimonial-quote">
+        Z pełnym przekonaniem rekomenduję Pana Kacpra Drózda jako kompetentnego i godnego zaufania specjalistę, który rzetelnie podchodzi do swoich obowiązków. Jego wiedza, doświadczenie i profesjonalizm będą dużym atutem w każdej firmie.
+      </div>
+      <div class="testimonial-author">
+        <div class="testimonial-author-name">Andrzej Lisowski</div>
+        <div class="testimonial-author-role">Kierownik Działu Konstrukcyjnego</div>
+        <div class="testimonial-author-company">International Tobacco Machinery Poland</div>
       </div>
     </div>
   </div>
@@ -803,7 +849,7 @@ footer a { color: var(--slate-400); text-decoration: none; }
             </div>
             <div>
               <div class="contact-method-label">Email</div>
-              <a href="mailto:drozdkacper1@gmail.com" class="contact-method-value">drozdkacper1@gmail.com</a>
+              <a href="/cdn-cgi/l/email-protection#0460766b7e606f656774617635446369656d682a676b69" class="contact-method-value"><span class="__cf_email__" data-cfemail="b7d3c5d8cdd3dcd6d4c7d2c586f7d0dad6dedb99d4d8da">[email&#160;protected]</span></a>
             </div>
           </div>
           <div class="contact-method">
@@ -855,11 +901,11 @@ footer a { color: var(--slate-400); text-decoration: none; }
 <!-- FOOTER -->
 <footer>
   <div class="container">
-    <p>&copy; 2026 MechVision — Kacper Drózd · Biuro Konstrukcyjne Maszyn · <a href="mailto:drozdkacper1@gmail.com">drozdkacper1@gmail.com</a></p>
+    <p>&copy; 2026 MechVision — Kacper Drózd · Biuro Konstrukcyjne Maszyn · <a href="/cdn-cgi/l/email-protection#ff9b8d90859b949e9c8f9a8dcebf98929e9693d19c9092"><span class="__cf_email__" data-cfemail="5337213c29373832302336216213343e323a3f7d303c3e">[email&#160;protected]</span></a></p>
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 40);
@@ -871,18 +917,4 @@ hamburger.addEventListener('click', () => {
   navLinks.classList.toggle('open');
 });
 navLinks.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => navLinks.classList.remove('open'));
-});
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-</script>
-</body>
-</html>
+  a.addEventListener(
