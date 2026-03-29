@@ -695,7 +695,7 @@ footer a { color: var(--slate-400); text-decoration: none; }
           </div>
         </div>
         <div class="portfolio-info">
-          <h3>Modyfikacja mechanizmu transportowego Spider</h3>
+          <h3>Modyfikacja mechanizmu transportowego</h3>
           <p>Przeprojektowanie krzywki globoidalnej na walcową dwustronną, obliczenia sił i przyspieszeń, symulacje CFD kanałów podciśnieniowych w celu uzyskania symetrii przepływu. Analiza kolizji i zakresów tolerancji.</p>
           <div class="portfolio-tag-row">
             <span class="exp-tag">SolidWorks</span>
@@ -713,7 +713,7 @@ footer a { color: var(--slate-400); text-decoration: none; }
         </div>
         <div class="portfolio-info">
           <h3>Schematy procesowe i kinematyczne maszyn</h3>
-          <p>Opracowywanie schematów procesowych, pneumatycznych i kinematycznych. Projektowanie prowadnic V-rail, karetki nożowej z detekcją wyszczerbień, mechanizmów start/stop oraz garniturów do nowych linii produktowych.</p>
+          <p>Opracowywanie schematów procesowych, pneumatycznych i kinematycznych. Projektowanie zestawu detekcji wyszczerbienia noży z powtarzalną pozycją po ponownym zamontowaniu, prowadnic z zawijaczami papieru oraz mechanizmów włączania i wyłączania maszyn bez ingerencji operatora.</p>
           <div class="portfolio-tag-row">
             <span class="exp-tag">Pneumatyka</span>
             <span class="exp-tag">Mechanizmy</span>
@@ -849,7 +849,7 @@ footer a { color: var(--slate-400); text-decoration: none; }
             </div>
             <div>
               <div class="contact-method-label">Email</div>
-              <a href="/cdn-cgi/l/email-protection#0460766b7e606f656774617635446369656d682a676b69" class="contact-method-value"><span class="__cf_email__" data-cfemail="b7d3c5d8cdd3dcd6d4c7d2c586f7d0dad6dedb99d4d8da">[email&#160;protected]</span></a>
+              <a href="mailto:drozdkacper1@gmail.com" class="contact-method-value">drozdkacper1@gmail.com</a>
             </div>
           </div>
           <div class="contact-method">
@@ -901,11 +901,11 @@ footer a { color: var(--slate-400); text-decoration: none; }
 <!-- FOOTER -->
 <footer>
   <div class="container">
-    <p>&copy; 2026 MechVision — Kacper Drózd · Biuro Konstrukcyjne Maszyn · <a href="/cdn-cgi/l/email-protection#ff9b8d90859b949e9c8f9a8dcebf98929e9693d19c9092"><span class="__cf_email__" data-cfemail="5337213c29373832302336216213343e323a3f7d303c3e">[email&#160;protected]</span></a></p>
+    <p>&copy; 2026 MechVision — Kacper Drózd · Biuro Konstrukcyjne Maszyn · <a href="mailto:drozdkacper1@gmail.com">drozdkacper1@gmail.com</a></p>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 40);
@@ -917,4 +917,18 @@ hamburger.addEventListener('click', () => {
   navLinks.classList.toggle('open');
 });
 navLinks.querySelectorAll('a').forEach(a => {
-  a.addEventListener(
+  a.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
